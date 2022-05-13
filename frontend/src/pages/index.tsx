@@ -1,5 +1,7 @@
+import { Slider } from './components/Slider'
+
 export default function Home() {
   return (
-    <h1>Narutinho</h1>
+    <Slider />
   )
 }
