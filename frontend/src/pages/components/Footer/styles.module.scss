@@ -1,0 +1,42 @@
+.container {
+  height: calc(100vh - 100px);
+  background: var(--black);
+  display: flex;
+  margin-top: 5rem;
+}
+
+.item {
+  flex: 1;
+  position: relative;
+  display: flex;
+
+  .card {
+    padding: 1rem;
+    flex: 1;
+
+    h2 {
+      text-transform: uppercase;
+      color: var(--golden);
+    }
+
+    .text {
+      margin: .5rem 0;
+      color: var(--white);
+      line-height: 1.2rem;
+      display: inline-block;
+      margin-bottom: .5rem;
+      font-weight: 100;
+    }
+  }
+
+  &:last-child {
+    flex: 2;
+    padding: 3.5rem;
+  }
+}
+
+.descHead {
+  font-size: 1.5rem;
+  color: var(--white);
+  font-weight: bold;
+}
