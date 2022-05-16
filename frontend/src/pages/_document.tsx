@@ -7,7 +7,8 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,400;8..144,700&display=swap" rel="stylesheet" />
-        </Head>
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+      </Head>
       <body>
         <Main />
         <NextScript />
