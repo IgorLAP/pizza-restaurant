@@ -1,15 +1,10 @@
-import Head from 'next/head'
 import Image from 'next/image'
 
 import styles from './styles.module.scss'
 
 export function Navbar() {
   return (
-    <>
-      <Head>
-        <title>Pizza Time | Order the best pizzas in Next.js</title>
-      </Head>
-      <div className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.item}>
         <button type='button'>
           <Image width={32} height={32} src="/img/telephone.png" alt='call us' />
@@ -39,6 +34,5 @@ export function Navbar() {
         </div>
       </div>
     </div>
-    </>
   )
 }

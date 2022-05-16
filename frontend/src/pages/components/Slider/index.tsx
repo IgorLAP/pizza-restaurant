@@ -1,10 +1,28 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styles from './styles.module.scss'
 
+declare global {
+  interface Window { 
+    myInterval: ReturnType<typeof setTimeout> 
+  }
+}
+
 export function Slider() {
   const [slide, setSlide] = useState(0)
+
+  // useEffect(() => {
+  //   window.myInterval = setInterval(() => {
+  //     handlePrevSlide()
+  //   }, 1000)
+  //   return () => {clearInterval(window.myInterval)}
+  // }, [])
+
+  // useEffect(() => {
+    
+  //   console.log(slide, images.length)
+  // }, [slide])
 
   function handlePrevSlide() {
     if(slide > 0){
@@ -17,7 +35,7 @@ export function Slider() {
   }
 
   function handleNextSlide() {
-    if(slide == images.length - 1) {
+    if(slide == (images.length - 1)) {
       setSlide(0)
     } else {
       setSlide(prevState => prevState + 1)
@@ -38,7 +56,7 @@ export function Slider() {
       <div className={styles.wrapper} style={{ transform: `translateX(${-100 * slide}vw)` }}>
         {images.map((item, index) => (
           <div key={index} className={styles.imgContainer}>
-            <Image  src={item} alt=""  layout='fill' objectFit='contain' />
+            <Image src={item} priority alt=""  layout='fill' objectFit='contain' />
           </div>
         ))}
       </div>
