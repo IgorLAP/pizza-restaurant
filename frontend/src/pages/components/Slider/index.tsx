@@ -1,44 +1,40 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import styles from './styles.module.scss'
 
-declare global {
-  interface Window { 
-    myInterval: ReturnType<typeof setTimeout> 
-  }
-}
 
 export function Slider() {
   const [slide, setSlide] = useState(0)
+  const timeoutRef = useRef(null)
 
-  // useEffect(() => {
-  //   window.myInterval = setInterval(() => {
-  //     handlePrevSlide()
-  //   }, 1000)
-  //   return () => {clearInterval(window.myInterval)}
-  // }, [])
+  useEffect(() => {
+    resetTimeout()
+    timeoutRef.current = setTimeout(
+      () => handleChangeSlide('next')
+    , 4000)
+    return () => resetTimeout()
+  }, [slide])
 
-  // useEffect(() => {
-    
-  //   console.log(slide, images.length)
-  // }, [slide])
-
-  function handlePrevSlide() {
-    if(slide > 0){
-      setSlide(prevState => prevState - 1)
-    }
-
-    if(slide == 0) {
-      setSlide(images.length - 1)
+  function resetTimeout() {
+    if(timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
   }
 
-  function handleNextSlide() {
-    if(slide == (images.length - 1)) {
-      setSlide(0)
+  function handleChangeSlide(action: string) {
+    if(action === 'next') {
+      if(slide === images.length - 1) {
+        setSlide(0)
+      } else {
+        setSlide(prevState => prevState + 1)
+      }
     } else {
-      setSlide(prevState => prevState + 1)
+      if(slide <= 0) {
+        setSlide(images.length - 1)
+      } else {
+        setSlide(prevState => prevState - 1)
+      }
     }
   }
 
@@ -50,7 +46,7 @@ export function Slider() {
 
   return (
     <div className={styles.container}>
-      <div onClick={handlePrevSlide} className={styles.arrowContainer}>
+      <div onClick={() => handleChangeSlide('prev')} className={styles.arrowContainer}>
         <Image src="/img/arrowl.png" alt="previous" layout='fill' />
       </div>
       <div className={styles.wrapper} style={{ transform: `translateX(${-100 * slide}vw)` }}>
@@ -60,7 +56,7 @@ export function Slider() {
           </div>
         ))}
       </div>
-      <div onClick={handleNextSlide} className={styles.arrowContainer}>
+      <div onClick={() => handleChangeSlide('next')} className={styles.arrowContainer}>
         <Image src="/img/arrowr.png" alt="next" layout='fill' />  
       </div>
     </div>
