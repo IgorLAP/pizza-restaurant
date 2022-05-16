@@ -1,0 +1,120 @@
+.container {
+  height: calc(100vh - 100px);
+  display: flex;
+  padding: 2rem;
+}
+
+.leftSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .imgContainer {
+    position: relative;
+    height: 80%;
+    width: 80%;
+  }
+}
+
+.rightSide {
+  flex: 1;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .price {
+    border-bottom: 1px solid var(--orange-main);
+    width: fit-content;
+    margin-bottom: 1rem;
+    
+    span {
+      color: var(--orange-main);
+      font-size: 1.2rem;
+    }
+  }
+
+  h3 {
+    margin: 1.5rem 0;
+    font-weight: bold;
+  }
+
+  .pizzaSize {
+    display: flex;
+    margin-top: 1rem;
+
+    .size {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      margin-right: 3.5rem;
+      cursor: pointer;
+      transform: scale(1);
+      transition: transform ease .2s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &:nth-child(2) {
+        width: 40px;
+        height: 40px;
+      }
+
+      &:nth-child(3) {
+        width: 60px;
+        height: 60px;
+      }
+
+      span {
+        font-size: .8rem;
+        position: absolute;
+        right: -18px;
+        top: -10px;
+        color: white;
+        background: teal;
+        padding: .1rem;
+        border-radius: .25rem;
+
+        &.sizeSelected {
+          background-color: var(--orange-main);
+        }
+      }
+    }
+  }
+}
+
+.aditionalArea {
+  label {
+    margin-right: .7rem;
+  }
+
+  input {
+    width: 15px;
+    height: 15px;
+    margin-right: .2rem
+  }
+}
+
+.final {
+  margin: 1rem 0;
+
+  input, button {
+    padding: .35rem;
+  }
+
+  input {
+    width: 45px;
+    margin-right: .5rem;
+  }
+
+  button {
+    background: var(--orange-main);
+    color: var(--white);
+    border: 0;
+    height: 31px;
+  }
+}
