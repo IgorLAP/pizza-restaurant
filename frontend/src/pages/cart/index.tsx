@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { CartSummary } from '../components/CartSummary'
+import { CartSummary } from '../../components/CartSummary'
 import styles from './styles.module.scss'
 
 export default function Cart() {

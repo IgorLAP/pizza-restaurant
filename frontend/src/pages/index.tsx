@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import { PizzaList } from './components/PizzaList'
-import { Slider } from './components/Slider'
+import { PizzaList } from '../components/PizzaList'
+import { Slider } from '../components/Slider'
 
 export default function Home() {
   return (
