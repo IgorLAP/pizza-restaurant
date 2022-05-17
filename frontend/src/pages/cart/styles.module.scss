@@ -15,40 +15,4 @@
     width: 100%;
     border-spacing: 1.25rem;
   }
-  
-  .cartSummary {
-    flex: 1;
-    height: 245px;
-    background: var(--black);
-    padding: 1.5rem 3rem;
-
-    h1 {
-      color: var(--white);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      color: var(--white);
-      font-weight: bold;
-      line-height: 1.6srem;
-
-      span {
-        margin-left: .5rem;
-        font-weight: lighter;
-      }
-    }
-
-    button {
-      text-transform: uppercase;
-      border: 0;
-      width: 100%;
-      margin-top: 1rem;
-      color: var(--orange-main);
-      background-color: var(--white);
-      padding: .5rem 1.25rem;
-      font-weight: bold;
-      text-align: center;
-    }
-  }
 }
