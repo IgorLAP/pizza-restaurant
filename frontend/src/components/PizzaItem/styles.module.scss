@@ -25,3 +25,10 @@
 .desc {
   line-height: 1.25rem;
 }
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}

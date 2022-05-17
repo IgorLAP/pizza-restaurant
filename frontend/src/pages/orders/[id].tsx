@@ -21,10 +21,10 @@ export default function Orders() {
             </thead>
             <tbody>
               <tr>
-                <td>123848123848</td>
-                <td>John Doe</td>
-                <td>Brazil Avenue, 178, PE</td>
-                <td>$79.80</td>
+                <td className={styles.orderId}>123848123848</td>
+                <td className={styles.customerName}>John Doe</td>
+                <td className={styles.customerAddress}>Brazil Avenue, 178, PE</td>
+                <td className={styles.orderTotal}>$79.80</td>
               </tr>
             </tbody>
           </table>
@@ -59,7 +59,7 @@ export default function Orders() {
             </div>
           </div>
         </div>
-        <CartSummary 
+        <CartSummary
           data={{
             subtotal: 79.60,
             discount: 0.00,

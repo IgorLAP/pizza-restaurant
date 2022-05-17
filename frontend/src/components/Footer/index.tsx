@@ -9,7 +9,7 @@ export function Footer() {
       </div>
       <div className={styles.item}>
         <div className={styles.card}>
-          <p className={styles.descHead}>OH YES, WE DID.THE LAMA PIZZA, WELL BAKED SLICE OF PIZZA.</p>
+          <p className={styles.descHead}>OH YES, WE DID. THE LAMA PIZZA, WELL BAKED SLICE OF PIZZA.</p>
         </div>
         <div className={styles.card}>
           <h2>Find our restaurants</h2>

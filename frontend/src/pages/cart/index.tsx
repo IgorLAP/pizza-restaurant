@@ -27,11 +27,11 @@ export default function Cart() {
                   <Image src='/img/pizza.png' alt="pizza" layout='fill' objectFit='cover' />
                 </div>
               </td>
-              <td>Coralzo</td>
-              <td>Double ingredient, spicy sauce</td>
-              <td>$19.90</td>
-              <td>2</td>
-              <td>$39.80</td>
+              <td className={styles.productName}>Coralzo</td>
+              <td className={styles.extras}>Double ingredient, spicy sauce</td>
+              <td className={styles.price}>$19.90</td>
+              <td className={styles.quantity}>2</td>
+              <td className={styles.totalPrice}>$39.80</td>
             </tr>
           </tbody>
         </table>

@@ -1,5 +1,5 @@
 .container {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 6.25rem);
   background: var(--black);
   display: flex;
   margin-top: 5rem;
@@ -39,4 +39,23 @@
   font-size: 1.5rem;
   color: var(--white);
   font-weight: bold;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    height: auto;
+    padding-top: 1rem;
+
+    .item:first-child {
+      opacity: .5;
+      filter: blur(.3rem);
+    }
+
+    .item:last-child {
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      flex-direction: column;
+    }
+  }
 }

@@ -33,7 +33,7 @@ export default function Product() {
               style: 'currency'
             }).format(pizzaPlaceholder.price[sizeSelected])}</span>
           </div>
-          <p>{pizzaPlaceholder.desc}</p>
+          <p className={styles.desc}>{pizzaPlaceholder.desc}</p>
           <h3>Choose the size</h3>
           <div className={styles.pizzaSize}>
             <div onClick={() =>  setSizeSelected(0)} className={styles.size} >

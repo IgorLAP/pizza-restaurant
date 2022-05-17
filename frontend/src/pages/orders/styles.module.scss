@@ -55,3 +55,58 @@
   75% { opacity: .7 }
   100% { opacity: 1 }
 }
+
+@media screen and (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  
+    table {
+      display: flex;
+      flex-direction: column;
+      border-spacing: 1rem;
+      line-height: 2rem;
+
+      thead {
+        display: none;
+      }
+
+      tbody > tr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .rowTableLike {
+      padding: 0;
+      flex-direction: column;
+
+      .columnTableLike {
+        margin: 1rem 0;
+      }
+    }
+
+    .orderId::before {
+      content: 'Order ID: ';
+      font-weight: bold;
+    }
+
+    .customerName::before {
+      content: 'Name: ';
+      font-weight: bold;
+    }
+
+    .customerAddress::before {
+      content: 'Address: ';
+      font-weight: bold;
+    }
+
+    .orderTotal::before {
+      content: 'Total: ';
+      font-weight: bold;
+    }
+  }
+}

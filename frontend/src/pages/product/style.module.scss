@@ -1,5 +1,5 @@
 .container {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 6.25rem);
   display: flex;
   padding: 2rem;
 }
@@ -117,4 +117,42 @@
     border: 0;
     height: 31px;
   }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    height: auto;
+    flex-direction: column
+  }
+
+  .leftSide {
+    .imgContainer {
+      width: 70vw;
+      height: 70vw;
+      margin-bottom: .5rem;
+    }
+  }
+
+  .rightSide {
+    .desc {
+      font-size: 1.2rem;
+    }
+    .price {
+      font-weight: bold;
+    }
+  }
+
+  .aditionalArea {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+
+    input {
+      margin-bottom: 1rem;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.3);
+    }
+  }
+
 }

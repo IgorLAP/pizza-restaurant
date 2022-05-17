@@ -35,3 +35,15 @@
   height: 100%;
   position: relative;
 }
+
+@media screen and (max-width: 480px) {
+  .container {
+    height: calc(80vh - 6.25rem);
+
+    .arrowContainer {
+      height: 10%;
+      width: 15%;
+      top: -60px;
+    }
+  }
+}
