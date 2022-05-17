@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  padding: 0 5rem;
+  padding-top: 3rem;
+
+  .leftSide {
+    flex: 3;
+    text-align: left;
+
+    table {
+      width: 100%;
+      border-spacing: 1rem;
+    }
+  }
+
+  .rowTableLike {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3.5rem;
+    padding-left: 1rem;
+    margin: .75rem 0;
+    width: 100%;
+
+    .columnTableLike {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &.notDone {
+        opacity: .3;
+        
+        .checked {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.actual {
+  animation-name: actualProcess;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+
+  .checked {
+    display: none;
+  }
+}
+
+@keyframes actualProcess {
+  0% { opacity: .1; }
+  50% { opacity: .4 }
+  75% { opacity: .7 }
+  100% { opacity: 1 }
+}
