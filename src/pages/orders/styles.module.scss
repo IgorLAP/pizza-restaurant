@@ -16,6 +16,7 @@
   .rowTableLike {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-right: 3.5rem;
     padding-left: 1rem;
     margin: .75rem 0;
@@ -56,7 +57,7 @@
   100% { opacity: 1 }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 680px) {
   .container {
     flex-direction: column;
     padding-right: 1rem;
@@ -81,12 +82,7 @@
     }
 
     .rowTableLike {
-      padding: 0;
-      flex-direction: column;
-
-      .columnTableLike {
-        margin: 1rem 0;
-      }
+      padding: 0 1rem;
     }
 
     .orderId::before {
@@ -107,6 +103,17 @@
     .orderTotal::before {
       content: 'Total: ';
       font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .rowTableLike {
+    padding: 0;
+    flex-direction: column;
+
+    .columnTableLike {
+      margin: 1rem 0;
     }
   }
 }
