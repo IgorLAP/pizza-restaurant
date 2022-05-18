@@ -6,6 +6,16 @@ export function Navbar() {
   return (
     <div className={styles.container}>
       <div className={styles.item}>
+        <div className={styles.mobileMenu}>
+          <div className={styles.menuContainer}>
+            <input type="checkbox" id='checkbox-menu' className={styles.checkboxMenu} />
+            <label htmlFor="checkbox-menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+          </div>
+        </div>
         <button type='button'>
           <Image width={32} height={32} src="/img/telephone.png" alt='call us' />
         </button>

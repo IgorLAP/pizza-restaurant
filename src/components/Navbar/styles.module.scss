@@ -84,12 +84,99 @@
   color: var(--orange-main);
 }
 
+.mobileMenu {
+  display: none;
+  margin-right: 1rem;
+
+  .menuContainer {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .checkboxMenu {
+      position: absolute;
+      opacity: 0;
+
+      &:checked + label span:nth-child(1) {
+        transform: rotate(-45deg);
+        top: 8px;
+      }
+
+      &:checked + label span:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:checked + label span:nth-child(3) {
+        transform: rotate(45deg);
+        top: 8px;
+      }
+    }
+
+    label {
+      cursor: pointer;
+      position: relative;
+      display: block;
+      height: 22px;
+      width: 30px;
+
+      span {
+        position: absolute;
+        display: block;
+        height: 5px;
+        width: 100%;
+        border-radius: 30px;
+        background: var(--white);
+        transition: ease-in-out .25s;
+
+        &:nth-child(1) {
+          top: 0;
+        }
+
+        &:nth-child(2) {
+          top: 8px;
+        }
+
+        &:nth-child(3) {
+          top: 16px;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 480px) {
   .item {
     flex: 1;
+  }
 
+  .callText {
+  
+    span {
+  
+      &:first-child {
+        font-size: .8rem;
+      }
+  
+      &:last-child {
+        font-size: .8rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .item {
     &:nth-child(2){
       display: none;
     }
+
+    button {
+      padding: .40rem .50rem;
+      height: fit-content;
+    }
+  }
+  .mobileMenu {
+    display: block;
   }
 }
