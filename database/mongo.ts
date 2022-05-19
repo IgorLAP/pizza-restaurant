@@ -6,7 +6,6 @@ if(!MONGODB_URL) {
   throw new Error('Defina a variavel de conexão ao MongoDB "MONGODB_URL" no arquivo .env')
 }
 
-console.log(global)
 let cached = global.mongoose
 
 if(!cached) {
@@ -23,8 +22,10 @@ export default async function dbConnect() {
 
   if(!cached.promise) {
     const opts = {
-      bufferCommands: false,
+      // bufferCommands: false,
     }
+
+    mongoose.set('bufferCommands', false)
 
     cached.promise = mongoose.connect(MONGODB_URL, opts)
     .then(mongoose => mongoose)
