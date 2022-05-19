@@ -1,8 +1,12 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
+import { useAppSelector } from '../../hooks/useAppSelector'
 import styles from './styles.module.scss'
 
 export function Navbar() {
+  const quantity = useAppSelector(state => state.cart.quantity)
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -38,10 +42,12 @@ export function Navbar() {
         </nav>
       </div>
       <div className={styles.item}>
-        <div className={styles.cart}>
-          <Image src='/img/cart.png' alt='Cart' width={30} height={30} />
-          <span className={styles.counter}>2</span>
-        </div>
+        <Link href='/cart'>
+          <div className={styles.cart}>
+            <Image src='/img/cart.png' alt='Cart' width={30} height={30} />
+            <span className={styles.counter}>{quantity}</span>
+          </div>
+        </Link>
       </div>
     </div>
   )

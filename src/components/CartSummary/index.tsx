@@ -1,11 +1,12 @@
+import { moneyFormatter } from '../../helpers/moneyFormatter';
 import styles from './styles.module.scss'
 
 interface CartSummaryProps {
   data: {
     subtotal: number;
-    discount: number;
+    discount?: number;
     total: number;
-    status: boolean;
+    status?: boolean;
   }
 }
 
@@ -15,23 +16,17 @@ export function CartSummary({ data }: CartSummaryProps) {
         <h1>Cart total</h1>
         <p>Subtotal: 
           <span>
-            {new Intl.NumberFormat('en-US', {
-              currency: 'USD', style: 'currency'
-            }).format(data.subtotal)}
+            {moneyFormatter(data.subtotal)}
           </span>
         </p>
         <p>Discount: 
           <span>
-          {new Intl.NumberFormat('en-US', {
-              currency: 'USD', style: 'currency'
-            }).format(data.discount)}
+          {moneyFormatter(data.discount || 0)}
           </span>
         </p>
         <p>Total: 
           <span>
-          {new Intl.NumberFormat('en-US', {
-              currency: 'USD', style: 'currency'
-            }).format(data.total)}
+          {moneyFormatter(data.total)}
           </span>
         </p>
         {data.status && 

@@ -2,9 +2,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { CartSummary } from '../../components/CartSummary'
+import { moneyFormatter } from '../../helpers/moneyFormatter'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { ProductInterface } from '../../interfaces/ProductInterface'
 import styles from './styles.module.scss'
 
+type ExcludeProductInterface = Omit<ProductInterface, 'prices' | 'desc'>
+interface CartProduct extends ExcludeProductInterface {
+  quantity: number;
+  total: number;
+  price: number;
+}
+
 export default function Cart() {
+  const total = useAppSelector(state => state.cart.total)
+  const products: CartProduct[] = useAppSelector(state => state.cart.products)
+  
   return (
     <>
       <Head><title>Cart | Pizza Time</title></Head>
@@ -21,26 +34,30 @@ export default function Cart() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div className={styles.imgContainer}>
-                  <Image src='/img/pizza.png' alt="pizza" layout='fill' objectFit='cover' />
-                </div>
-              </td>
-              <td className={styles.productName}>Coralzo</td>
-              <td className={styles.extras}>Double ingredient, spicy sauce</td>
-              <td className={styles.price}>$19.90</td>
-              <td className={styles.quantity}>2</td>
-              <td className={styles.totalPrice}>$39.80</td>
-            </tr>
+            {products.map(item => (
+              <tr key={item._id}>
+                <td>
+                  <div className={styles.imgContainer}>
+                    <Image src={item.img} alt="pizza" layout='fill' objectFit='cover' />
+                  </div>
+                </td>
+                <td className={styles.productName}>{item.title}</td>
+                <td className={styles.extras}>
+                  {item.extraOptions.map(extra => 
+                    (<span key={extra.text}>{extra.text} - </span>)
+                  )}
+                </td>
+                <td className={styles.price}>{moneyFormatter(item.price)}</td>
+                <td className={styles.quantity}>{item.quantity}</td>
+                <td className={styles.totalPrice}>{moneyFormatter(item.total)}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <CartSummary 
           data={{
-            subtotal: 79.60,
-            discount: 0.00,
-            total: 79.60,
-            status: false
+            subtotal: total,
+            total: total,
           }} 
         />
     </div>

@@ -6,34 +6,46 @@ import React, { useEffect, useState } from 'react'
 import { Extras, ProductInterface } from '../../interfaces/ProductInterface'
 import { getOneProduct } from '../../lib/get-one-product'
 import styles from './style.module.scss'
+import { useDispatch } from 'react-redux'
+import { addProduct } from './../../redux/reducers/cartSlice'
+import { moneyFormatter } from '../../helpers/moneyFormatter'
 
 interface ProductProps {
   product: ProductInterface;
 }
 
 export default function Product({ product }: ProductProps) {
+  const dispatch = useDispatch()
+
   const [sizeSelected, setSizeSelected] = useState(0)
   const [quantity, setQuantity] = useState(1)
-  const [extraOption, setExtraOption] = useState<Extras[]>([{ text: '', price: 0 }])
+  const [extraOptions, setextraOptions] = useState<Extras[]>([])
   const [actualPrice, setActualPrice] = useState(0)
   
   useEffect(() => {
     setActualPrice(() => {
-      const extras = extraOption.reduce((total, item) => {
+      const extras = extraOptions.reduce((total, item) => {
         total += item.price
         return total
       }, 0)
       const actual = [product.prices[sizeSelected], quantity, extras];
       return (actual[0] * actual[1]) + actual[2]
     })
-  }, [sizeSelected, quantity, extraOption])
+  }, [sizeSelected, quantity, extraOptions])
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>, item: Extras) {
     if(e.target.checked) {
-      setExtraOption([...extraOption, item])
+      setextraOptions([...extraOptions, item])
     } else {
-      setExtraOption(prevState => prevState.filter(i => i.text !== item.text))
+      setextraOptions(prevState => prevState.filter(i => i.text !== item.text))
     }
+  }
+
+  function handleClick() {
+    const { _id, img, title  } = product
+    dispatch( addProduct(
+      { extraOptions, quantity, total: actualPrice, _id, img, title, price: product.prices[sizeSelected] }
+    ))
   }
 
   return (
@@ -48,10 +60,7 @@ export default function Product({ product }: ProductProps) {
         <div className={styles.rightSide}>
           <h1>{product.title}</h1>
           <div className={styles.price}>
-            <span>{new Intl.NumberFormat('en-US', {
-              currency: 'USD',
-              style: 'currency'
-            }).format(actualPrice)}</span>
+            <span>{moneyFormatter(actualPrice)}</span>
           </div>
           <p className={styles.desc}>{product.desc}</p>
           <h3>Choose the size</h3>
@@ -83,7 +92,7 @@ export default function Product({ product }: ProductProps) {
           </div>
           <div className={styles.final}>
             <input type="number" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
-            <button type='button'>Add to Cart</button>
+            <button type='button' onClick={handleClick}>Add to Cart</button>
           </div>
         </div>
       </div>

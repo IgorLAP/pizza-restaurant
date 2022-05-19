@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link';
+import { moneyFormatter } from '../../helpers/moneyFormatter';
 
 import { ProductInterface } from '../../interfaces/ProductInterface'
 import styles from './styles.module.scss'
@@ -15,7 +16,7 @@ export function PizzaItem({ data }: PizzaItemProps) {
         <Image src={data.img} alt='' width={500} height={500} />
         <p className={styles.title}>{data.title}</p>
         <p className={styles.price}>
-          {new Intl.NumberFormat('en-US', { currency: 'USD', style: 'currency' }).format(data.prices[0])}
+          {moneyFormatter(data.prices[0])}
           </p>
         <span className={styles.desc}>{data.desc}</span>
       </div>
