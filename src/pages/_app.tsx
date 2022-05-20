@@ -1,6 +1,8 @@
 import './../styles/global.scss'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Provider } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 
 import { Layout } from '../components/Layout'
 import { store } from './../redux/store'
@@ -11,6 +13,7 @@ function MyApp({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <ToastContainer />
     </Provider>
   )
 }
