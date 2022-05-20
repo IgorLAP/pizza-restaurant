@@ -1,14 +1,16 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
+import { moneyFormatter } from '../../helpers/moneyFormatter'
+import { showSucessToast } from '../../helpers/toast'
 import { Extras, ProductInterface } from '../../interfaces/ProductInterface'
 import { getOneProduct } from '../../lib/get-one-product'
-import styles from './style.module.scss'
-import { useDispatch } from 'react-redux'
 import { addProduct } from './../../redux/reducers/cartSlice'
-import { moneyFormatter } from '../../helpers/moneyFormatter'
+import styles from './style.module.scss'
 
 interface ProductProps {
   product: ProductInterface;
@@ -33,6 +35,8 @@ export default function Product({ product }: ProductProps) {
     })
   }, [sizeSelected, quantity, extraOptions])
 
+  
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>, item: Extras) {
     if(e.target.checked) {
       setextraOptions([...extraOptions, item])
@@ -46,6 +50,8 @@ export default function Product({ product }: ProductProps) {
     dispatch( addProduct(
       { extraOptions, quantity, total: actualPrice, _id, img, title, price: product.prices[sizeSelected] }
     ))
+    Router.push('/cart')
+    showSucessToast(`${title} adicionada ao carrinho`)
   }
 
   return (
