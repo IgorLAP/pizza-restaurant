@@ -1,5 +1,7 @@
-import { moneyFormatter } from '../../helpers/moneyFormatter';
+import { moneyFormatter } from '../../helpers/moneyFormatter'
 import styles from './styles.module.scss'
+import { PaypalBtn } from './../PaypalBtn/index'
+import React, { useState } from 'react';
 
 interface CartSummaryProps {
   data: {
@@ -11,6 +13,8 @@ interface CartSummaryProps {
 }
 
 export function CartSummary({ data }: CartSummaryProps) {
+  const [open, setOpen] = useState(false) 
+  
   return (
     <div className={styles.cartSummary}>
         <h1>Cart total</h1>
@@ -29,11 +33,20 @@ export function CartSummary({ data }: CartSummaryProps) {
           {moneyFormatter(data.total)}
           </span>
         </p>
-        {data.status && 
-          <button disabled style={{ color: 'var(--teal)' }} type='button'>Paid</button>
-        }
-        {!data.status && 
-          <button type='button'>Check out now!</button>
+        {data.status ? 
+          (
+            <button disabled style={{ color: 'var(--teal)' }} type='button'>Paid</button>
+          ) : 
+          (
+            !open ? (
+              <button onClick={() =>  setOpen(true)}>Check out now</button>
+            ) : (
+              <div className={styles.paymentMethods}>
+                <button>Cash on delivery</button>
+                <PaypalBtn />
+              </div>
+            )
+          )
         }
     </div>
   )
