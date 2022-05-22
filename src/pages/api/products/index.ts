@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import dbConnect from '../../../../database/mongo'
-import Product from '../../../../models/Product'
+import dbConnect from '../../../database/mongo'
+import Product from '../../../models/Product'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
