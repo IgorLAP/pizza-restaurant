@@ -6,6 +6,13 @@ import { showToast } from '../../helpers/showToast'
 
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { reset } from './../../redux/reducers/cartSlice'
+import { PayPalNamespace } from '@paypal/paypal-js/types/index'
+
+declare global {
+  interface Window {
+    paypal?: PayPalNamespace
+  }
+}
 
 export function PaypalBtn() {
   const paypal = useRef();
