@@ -1,7 +1,9 @@
 import { toast } from 'react-toastify';
 
-export function showSucessToast(msg: string) {
-  return toast.success(msg, {
+type ToastTypes = 'success' | 'error'
+
+export function showToast(msg: string, type: ToastTypes) {
+  return toast[type](msg, {
     position: "bottom-left",
     autoClose: 1000,
     hideProgressBar: false,
