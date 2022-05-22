@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { moneyFormatter } from '../../helpers/moneyFormatter'
-import { showSucessToast } from '../../helpers/toast'
+import { showToast } from '../../helpers/showToast'
 import { Extras, ProductInterface } from '../../interfaces/ProductInterface'
 import { getOneProduct } from '../../lib/get-one-product'
 import { addProduct } from './../../redux/reducers/cartSlice'
@@ -35,8 +35,6 @@ export default function Product({ product }: ProductProps) {
     })
   }, [sizeSelected, quantity, extraOptions])
 
-  
-
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>, item: Extras) {
     if(e.target.checked) {
       setextraOptions([...extraOptions, item])
@@ -51,7 +49,7 @@ export default function Product({ product }: ProductProps) {
       { extraOptions, quantity, total: actualPrice, _id, img, title, price: product.prices[sizeSelected] }
     ))
     Router.push('/cart')
-    showSucessToast(`${title} adicionada ao carrinho`)
+    showToast(`${title} adicionada ao carrinho`, 'success')
   }
 
   return (
