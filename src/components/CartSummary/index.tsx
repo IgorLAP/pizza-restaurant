@@ -1,7 +1,9 @@
+import React, { useState } from 'react'
+
 import { moneyFormatter } from '../../helpers/moneyFormatter'
+import { OrderModal } from '../OrderModal'
+import { PaypalBtn } from './../PaypalBtn'
 import styles from './styles.module.scss'
-import { PaypalBtn } from './../PaypalBtn/index'
-import React, { useState } from 'react';
 
 interface CartSummaryProps {
   data: {
@@ -14,9 +16,11 @@ interface CartSummaryProps {
 
 export function CartSummary({ data }: CartSummaryProps) {
   const [open, setOpen] = useState(false) 
+  const [modal, setModal] = useState(false)
   
   return (
-    <div className={styles.cartSummary}>
+    <>
+      <div className={styles.cartSummary}>
         <h1>Cart total</h1>
         <p>Subtotal: 
           <span>
@@ -42,12 +46,16 @@ export function CartSummary({ data }: CartSummaryProps) {
               <button onClick={() =>  setOpen(true)}>Check out now</button>
             ) : (
               <div className={styles.paymentMethods}>
-                <button>Cash on delivery</button>
+                <button onClick={() => setModal(true)}>Cash on delivery</button>
                 <PaypalBtn />
               </div>
             )
           )
         }
-    </div>
+      </div>
+      {modal && 
+        <OrderModal setModal={setModal} />
+      }
+    </>
   )
 }
