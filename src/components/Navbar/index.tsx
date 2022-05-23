@@ -31,7 +31,9 @@ export function Navbar() {
       <div className={styles.item}>
         <nav>
           <ul>
-            <li>Homepage</li>
+            <li>
+              <Link href='/'>Homepage</Link>
+            </li>
             <li>Products</li>
             <li>Menu</li>
             <Image src='/img/logo.png' alt='Pizza time logo' width={160} height={69} />

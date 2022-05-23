@@ -10,6 +10,10 @@
     table {
       width: 100%;
       border-spacing: 1rem;
+
+      td {
+        max-width: 130px;
+      }
     }
   }
 
