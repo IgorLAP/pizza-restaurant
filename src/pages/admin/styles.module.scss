@@ -22,6 +22,10 @@
     border-radius: .25rem;
     margin-bottom: .5rem;
     color: var(--white);
+
+    &:hover {
+      filter: opacity(.8);
+    }
   }
 
   h2 {

@@ -177,7 +177,18 @@ export default function Admin({ orders, products }: AdminProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { token } = req.cookies;
+  
+  if (!token || token !== process.env.TOKEN) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+  
   const orders = await Orders.find();
   const products = await Product.find();
 
