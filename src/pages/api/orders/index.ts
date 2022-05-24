@@ -25,4 +25,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(500).json({ error: err._message })
     }
   }
+
+  if(method == 'PUT') {
+    const { id, status } = req.body;
+
+    try {
+      const order = await Orders.findByIdAndUpdate(id, { status }, {
+        new: true
+      })
+      res.status(200).json(order)
+    } catch (err) {
+      res.status(500).json(err)
+    }
+  }
 }
