@@ -4,26 +4,21 @@ import Image from 'next/image'
 
 import { CartSummary } from '../../components/CartSummary'
 import { moneyFormatter } from '../../helpers/moneyFormatter'
+import { OrderInterface } from '../../interfaces/OrderInterface'
 import { getOneOrder } from '../../lib/get-one-order'
 import styles from './styles.module.scss'
 
 interface OrdersProps {
-  order: {
-    _id: string;
-    customer: string;
-    address: string;
-    total: number;
-    status: number;
-  }
+  order: OrderInterface;
 }
 
 export default function Orders({ order }: OrdersProps) {
   function properStatus(index: number) {
-    if(index === order.status) return `${styles.columnTableLike}`
+    if(index === order.status || order.status == 2) return `${styles.columnTableLike}`
     if((order.status + 1) === index) return `${styles.columnTableLike} ${styles.actual}`
     if(index > order.status) return `${styles.columnTableLike} ${styles.notDone}`
   }
-
+  
   return (
     <>
       <Head><title>Orders | Pizza Time</title></Head>
