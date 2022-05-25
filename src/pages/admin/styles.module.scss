@@ -1,5 +1,5 @@
 .container {
-  width: 1120px;
+  max-width: 1120px;
   margin: 2rem auto;
   display: flex;
 
@@ -31,6 +31,7 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
+    text-align: center;
   }
 
   .leftTable {
@@ -50,6 +51,20 @@
 
     button {
       background: var(--orange-main);
+    }
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .container {
+    flex-direction: column;
+    
+    h2 {
+      margin: 0;
+    }
+
+    .tableWrapper {
+      overflow: scroll;
     }
   }
 }
