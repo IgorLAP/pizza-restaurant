@@ -1,0 +1,118 @@
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.8);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-weight: lighter;
+    text-align: center;
+  }
+
+  .container {
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: .25rem;
+    overflow: scroll;
+    padding: 1rem 0;
+
+    .input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2rem;
+      width: 100%;
+
+      label, input, textarea {
+        width: 100%;
+      }
+
+      label {
+        font-weight: bold;
+        margin: .5rem 0;
+      }
+      
+      input {
+        padding: 0 .25rem;
+        border: 0;
+        height: 40px;
+        outline: 0;
+        border-bottom: 1px solid #ccc;
+        transition: all ease .2s;
+
+        &:focus {
+          border-bottom: 1px solid black;
+        }
+      }
+
+      textarea {
+        padding: .25rem;
+        border: 1px solid #ccc;
+        resize: none;
+      }
+    }
+
+    .priceInputs, .extraInputs {
+      display: flex;
+
+      input + input {
+        margin-left: 1.5rem;
+      }
+    }
+
+    .extraInputs {
+      button {
+        display: block;
+        width: 100%;
+        padding: .5rem;
+        margin-left: 1.5rem;
+        background: var(--orange-main);
+      }
+    }
+
+    .extras {
+      display: flex;
+
+      span {
+        padding: .2rem;
+        border: 1px solid var(--orange-main);
+        color: var(--orange-main);
+        border-radius: .25rem;
+        
+        & + span {
+          margin-left: .2rem;
+        }
+      }
+    }
+
+    .createBtn {
+      padding: .5rem 3rem ;
+    }
+
+    button {
+      margin-top: 1rem;
+      border-radius: .25rem;
+      border: 0;
+      padding: .8rem 1.25rem;
+      color: var(--white);
+      background: var(--teal);
+      transition: filter ease-out .2s;
+
+      &:disabled {
+        filter: opacity(.5)
+      }
+    }
+  }
+}
