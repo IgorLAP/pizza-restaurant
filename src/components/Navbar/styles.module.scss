@@ -153,24 +153,14 @@
 @media screen and (max-width: 480px) {
   .item {
     flex: 1;
-  }
 
-  .callText {
-  
-    span {
-  
-      &:first-child {
-        font-size: .8rem;
-      }
-  
-      &:last-child {
-        font-size: .8rem;
-      }
+    button {
+      display: none;
     }
   }
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 860px) {
   .item {
     &:nth-child(2){
       display: none;
@@ -181,6 +171,17 @@
       height: fit-content;
     }
   }
+
+  .callText {
+  
+    span {
+  
+      &:first-child, &:last-child {
+        font-size: .8rem;
+      }
+    }
+  }
+
   .mobileMenu {
     display: block;
   }
