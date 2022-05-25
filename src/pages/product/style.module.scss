@@ -114,8 +114,14 @@
   button {
     background: var(--orange-main);
     color: var(--white);
+    border-radius: .25rem;
     border: 0;
     height: 31px;
+    transition: filter ease .2s;
+
+    &:hover {
+      opacity: .8;
+    }
   }
 }
 

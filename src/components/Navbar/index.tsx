@@ -38,7 +38,7 @@ export function Navbar() {
             <li>
               <Link href='/login'>Login</Link>
             </li>
-            <Image src='/img/logo.png' alt='Pizza time logo' width={160} height={69} />
+            <Image src='/img/logo.png' alt='Pizza time logo' width={80} height={80} />
             <li>Events</li>
             <li>Blog</li>
             <li>Contact</li>
