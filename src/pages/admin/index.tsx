@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { NewProductModal } from '../../components/NewProductModal'
 import { moneyFormatter } from '../../helpers/moneyFormatter'
 import { showConfirmAlert, showSimpleErrorAlert, showSimpleSuccessAlert } from '../../helpers/showAlert'
+import { showToast } from '../../helpers/showToast'
 import { OrderInterface } from '../../interfaces/OrderInterface'
 import { ProductInterface } from '../../interfaces/ProductInterface'
 import Orders from '../../models/Orders'
@@ -18,8 +20,23 @@ interface AdminProps {
 
 export default function Admin({ orders, products }: AdminProps) {
   const [pizzaList, setPizzaList] = useState<ProductInterface[]>(products)
+  
   const [ordersList, setOrdersList] = useState(orders)
+  const [modal, setModal] = useState(false)
+
   const status = [ 'Preparing', 'On the way', 'Delivered' ]
+
+  useEffect(() => {
+    if (!modal) {
+      axios.get('/api/products')
+      .then(res => {
+        if (res.data.length !== pizzaList.length) {
+          setPizzaList(res.data as ProductInterface[])
+        }
+      })
+      .catch(err => showToast('Unable to verify new product, please refresh', 'error'))
+    }
+  }, [modal])
 
   function handleDeleteProduct(id: string) {
     showConfirmAlert({ id })
@@ -62,6 +79,12 @@ export default function Admin({ orders, products }: AdminProps) {
     <div className={styles.container}>
       <div className={styles.leftTable}>
         <h2>Products</h2>
+        <button 
+          onClick={() => setModal(true)} 
+          className={styles.addNew}>Add new product</button>
+        {modal && 
+          <NewProductModal setModal={setModal} />
+        }
         <div className={styles.tableWrapper}>
           <table>
             <thead>
