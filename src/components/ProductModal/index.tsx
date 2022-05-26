@@ -3,26 +3,28 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 
 import { showSimpleErrorAlert } from '../../helpers/showAlert'
 import { showToast } from '../../helpers/showToast'
+import { ProductInterface } from '../../interfaces/ProductInterface'
 import styles from './styles.module.scss'
 
-interface NewProductModalProps {
+interface ProductModalProps {
   setModal: Dispatch<SetStateAction<boolean>>;
+  product?: ProductInterface;
 }
 
-export function NewProductModal({ setModal }: NewProductModalProps) {
-  const [file, setFile] = useState<File>()
-  const [title, setTitle] = useState('')
-  const [desc, setDesc] = useState('')
-  const [smallPrice, setSmallPrice] = useState(0)
-  const [mediumPrice, setMediumPrice] = useState(0)
-  const [largePrice, setLargePrice] = useState(0)
-  const [extraOptions, setExtraOptions] = useState<{ text: string, price: number }[]>([])
+export function ProductModal({ setModal, product }: ProductModalProps) {
+  const [file, setFile] = useState<File | string>(product?.img || undefined)
+  const [title, setTitle] = useState(product?.title || '')
+  const [desc, setDesc] = useState(product?.desc || '')
+  const [smallPrice, setSmallPrice] = useState(product?.prices[0] || 0)
+  const [mediumPrice, setMediumPrice] = useState(product?.prices[1] || 0)
+  const [largePrice, setLargePrice] = useState(product?.prices[2] || 0)
+  const [extraOptions, setExtraOptions] = useState<{ text: string, price: number }[]>(product?.extraOptions || [])
   const [extraTxt, setExtraTxt] = useState('')
   const [extraPrice, setExtraPrice] = useState(0)
   const [onRequest, setOnRequest] = useState(false)
 
   function handleClickCloseModal(e) {
-    if(e.target.classList[0] == 'styles_modal__3U3IH'){
+    if(e.target.classList[0] == 'styles_modal__5iPqE'){
       setModal(false)
     }
   }
@@ -33,7 +35,11 @@ export function NewProductModal({ setModal }: NewProductModalProps) {
     }
   }
 
-  function handleCreate() {
+  function handleDeleteExtra(text: string) {
+    setExtraOptions(prevState => prevState.filter(i => i.text !== text))
+  }
+
+  async function handleCreateUpdate() {
     setOnRequest(true)
     const requiredFields = [file, title, desc, smallPrice, mediumPrice, largePrice]
     for(let i of requiredFields) {
@@ -43,19 +49,37 @@ export function NewProductModal({ setModal }: NewProductModalProps) {
         return;
       }
     }
-    axios.post('/api/products', {
-      title, desc, img: '/img/pizza.png', 
-      prices: [smallPrice, mediumPrice, largePrice], 
-      extraOptions 
-    })
-    .then(res => {
-      setOnRequest(false)
-      setModal(false)
-      showToast('Product created', 'success')
-    })
-    .catch(err => {
+    try {
+      let tmpImg;
+
+      if (file !== undefined && typeof file !== 'string') {
+        const fd = new FormData()
+        fd.append('file', file)
+        fd.append('upload_preset', 'pizzas')
+        const cloudnary = await axios.post('https://api.cloudinary.com/v1_1/djcswbnye/image/upload', fd)
+        const { url } = cloudnary.data
+        tmpImg = url;
+      } else {
+        tmpImg = file
+      }
+
+      axios.post('/api/products', {
+        id: product?._id || null,
+        title, desc, img: tmpImg, 
+        prices: [smallPrice, mediumPrice, largePrice], 
+        extraOptions 
+      })
+      .then(res => {
+        setOnRequest(false)
+        setModal(false)
+        showToast('Product created', 'success')
+      })
+      .catch(err => {
+        showToast(`Something went wrong ${err.message}`, 'error')
+      })
+    } catch(err) {
       showToast(`Something went wrong ${err.message}`, 'error')
-    })
+    }
   }
 
   return (
@@ -72,6 +96,7 @@ export function NewProductModal({ setModal }: NewProductModalProps) {
         <div className={styles.input}>
           <label htmlFor="title">Title</label>
           <input 
+            value={title}
             onChange={(e) => setTitle(e.target.value)} 
             type="text" name="tiel"
           />
@@ -79,6 +104,7 @@ export function NewProductModal({ setModal }: NewProductModalProps) {
         <div className={styles.input}>
           <label htmlFor="desc">Description</label>
           <textarea 
+            value={desc}
             onChange={(e) => setDesc(e.target.value)}
             name='desc'
             rows={5} cols={33}
@@ -88,16 +114,19 @@ export function NewProductModal({ setModal }: NewProductModalProps) {
           <label htmlFor="prices">Prices</label>
           <div className={styles.priceInputs}>
             <input
+              value={smallPrice}
               placeholder='Small'
               onChange={(e) => setSmallPrice(Number(e.target.value))}
               type="number" name="prices"
             />
             <input
+              value={mediumPrice}
               placeholder='Medium'
               onChange={(e) => setMediumPrice(Number(e.target.value))}
               type="number" name="prices"
             />
             <input
+              value={largePrice}
               placeholder='Large'
               onChange={(e) => setLargePrice(Number(e.target.value))}
               type="number" name="prices"
@@ -120,14 +149,17 @@ export function NewProductModal({ setModal }: NewProductModalProps) {
         </div>
         <div  className={styles.extras}>
           {extraOptions && extraOptions.map(item => (
-            <span key={item.text}>{item.text}</span>
+            <span key={item.text}>
+              {item.text}
+              <span onClick={() => handleDeleteExtra(item.text)}>X</span>
+            </span>
           ))}
         </div>
         <button 
           disabled={onRequest}
-          onClick={handleCreate} 
+          onClick={handleCreateUpdate} 
           className={styles.createBtn}
-        >Create</button>
+        >Create/Update</button>
       </div>
     </div>
   )

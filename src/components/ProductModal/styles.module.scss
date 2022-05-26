@@ -90,9 +90,27 @@
         border: 1px solid var(--orange-main);
         color: var(--orange-main);
         border-radius: .25rem;
+        top: absolute;
         
         & + span {
           margin-left: .2rem;
+        }
+
+        & > span {
+          top: -10px;
+          left: 3px;
+          position: relative;
+          color: var(--white);
+          background: var(--red);
+          font-weight: bold;
+          border-radius: 50%;
+          padding: 0;
+          width: 15px;
+          height: 16px;
+          font-size: .8rem;
+          cursor: pointer;
+          display: inline-block;
+          text-align: center;
         }
       }
     }
