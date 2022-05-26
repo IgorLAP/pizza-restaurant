@@ -19,6 +19,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if(method == 'POST') {
     try {
+      const { id } = req.body;
+
+      if (id) {
+        const updated = await Product.findByIdAndUpdate(id, req.body, { new: true })
+        res.status(200).json(updated)
+        return;
+      }
+
       const product = await Product.create(req.body)
       res.status(201).json(product)
     } catch (err) {
