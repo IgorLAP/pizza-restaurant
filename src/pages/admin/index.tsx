@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-import { NewProductModal } from '../../components/NewProductModal'
+import { ProductModal } from '../../components/ProductModal'
 import { moneyFormatter } from '../../helpers/moneyFormatter'
 import { showConfirmAlert, showSimpleErrorAlert, showSimpleSuccessAlert } from '../../helpers/showAlert'
 import { showToast } from '../../helpers/showToast'
@@ -23,6 +23,7 @@ export default function Admin({ orders, products }: AdminProps) {
   
   const [ordersList, setOrdersList] = useState(orders)
   const [modal, setModal] = useState(false)
+  const [editProduct, setEditProduct] = useState<ProductInterface>()
 
   const status = [ 'Preparing', 'On the way', 'Delivered' ]
 
@@ -30,9 +31,7 @@ export default function Admin({ orders, products }: AdminProps) {
     if (!modal) {
       axios.get('/api/products')
       .then(res => {
-        if (res.data.length !== pizzaList.length) {
-          setPizzaList(res.data as ProductInterface[])
-        }
+        setPizzaList(res.data as ProductInterface[])
       })
       .catch(err => showToast('Unable to verify new product, please refresh', 'error'))
     }
@@ -83,7 +82,7 @@ export default function Admin({ orders, products }: AdminProps) {
           onClick={() => setModal(true)} 
           className={styles.addNew}>Add new product</button>
         {modal && 
-          <NewProductModal setModal={setModal} />
+          <ProductModal product={editProduct} setModal={setModal} />
         }
         <div className={styles.tableWrapper}>
           <table>
@@ -118,7 +117,12 @@ export default function Admin({ orders, products }: AdminProps) {
                     ))}
                   </td>
                   <td>
-                    <button className={styles.editBtn}>edit</button>
+                    <button 
+                      onClick={() => {
+                        setEditProduct(item)
+                        setModal(true)
+                      }}
+                      className={styles.editBtn}>edit</button>
                     <button
                       onClick={() => handleDeleteProduct(item._id)}
                       className={styles.delBtn}
