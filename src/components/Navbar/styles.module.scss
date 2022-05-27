@@ -92,6 +92,7 @@
 .mobileMenu {
   display: none;
   margin-right: 1rem;
+  z-index: 999;
 
   .menuContainer {
     height: 100%;
@@ -164,6 +165,27 @@
   .item {
     &:nth-child(2){
       display: none;
+
+      ul {
+        top: 10px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background: var(--orange-main);
+        flex-direction: column;
+        position: fixed;
+        justify-content: center;
+        align-items: center;
+
+        li {
+          cursor: pointer;
+          font-size: 2rem;
+
+          &:hover {
+            filter: brightness(.7);
+          }
+        }
+      }
     }
 
     button {
