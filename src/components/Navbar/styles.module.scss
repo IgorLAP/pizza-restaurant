@@ -15,11 +15,11 @@
   display: flex;
   align-items: center;
 
-  &:nth-child(2){
+  &:nth-child(2) {
     flex: 3;
   }
 
-  &:last-child{
+  &:last-child {
     justify-content: flex-end;
   }
 
@@ -38,8 +38,14 @@
     color: var(--white);
 
     li {
+      cursor: pointer;
       margin: 1.2rem;
       font-weight: 500;
+      transition: filter ease-out .3s;
+
+      &:hover {
+        filter: brightness(.1);
+      }
 
       a {
         color: var(--white);
@@ -104,16 +110,16 @@
       position: absolute;
       opacity: 0;
 
-      &:checked + label span:nth-child(1) {
+      &:checked+label span:nth-child(1) {
         transform: rotate(-45deg);
         top: 8px;
       }
 
-      &:checked + label span:nth-child(2) {
+      &:checked+label span:nth-child(2) {
         opacity: 0;
       }
 
-      &:checked + label span:nth-child(3) {
+      &:checked+label span:nth-child(3) {
         transform: rotate(45deg);
         top: 8px;
       }
@@ -163,7 +169,7 @@
 
 @media screen and (max-width: 860px) {
   .item {
-    &:nth-child(2){
+    &:nth-child(2) {
       display: none;
 
       ul {
@@ -195,10 +201,11 @@
   }
 
   .callText {
-  
+
     span {
-  
-      &:first-child, &:last-child {
+
+      &:first-child,
+      &:last-child {
         font-size: .8rem;
       }
     }
